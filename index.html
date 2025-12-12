@@ -1,188 +1,289 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Welper Script Store</title>
+  <meta charset="UTF-8">
 
-<style>
+  <!-- ANTI ZOOM HP -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <title>𝗔𝗟𝗟 𝗦𝗖 𝗙𝗥𝗘𝗘 𝗕𝗬 𝗪𝗘𝗟𝗣𝗘𝗥 𝗢𝗙𝗙𝗜𝗖𝗜𝗔𝗟 - Versi HP (Street Neon)</title>
+
+  <style>
+    /* ==== RESET ==== */
+    *{
+      margin:0; padding:0; box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+      -webkit-tap-highlight-color:transparent;
+    }
+    html, body { height:100%; width:100%; overscroll-behavior:none; }
+
+    /* ==== BACKGROUND FIXED BIAR NGIKUT TERUS SAAT SCROLL ==== */
     body {
-        margin: 0;
-        background: #0d1117;
-        font-family: Arial, sans-serif;
-        color: #e2e8f0;
-        padding-bottom: 150px; /* Ruang aman untuk bottom icon desktop */
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      min-height:100vh;
+      color:#fff;
+      overflow-x:hidden;
+      position:relative;
+      animation:mobileFadeIn .8s ease-in;
+      -webkit-font-smoothing:antialiased;
     }
 
-    /* HEADER */
-    .header {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        padding: 20px;
-        border-bottom: 1px solid #1f2937;
+    body::before {
+      content:"";
+      position:fixed;
+      inset:0;
+      background:
+        linear-gradient(135deg, rgba(3,8,20,0.72), rgba(18,10,30,0.6)),
+        url('https://img1.pixhost.to/images/10822/670459217_uploaded_image.jpg') center/cover no-repeat;
+      z-index:-2;
     }
 
-    .logo-img {
-        width: 64px;
-        height: 64px;
-        border-radius: 14px;
-        object-fit: cover;
-        border: 2px solid #1d8bff;
+    /* partikel tetap mengambang */
+    body::after {
+      content:'';
+      position:fixed;
+      inset:0;
+      background:radial-gradient(circle, rgba(90,60,255,0.06) 1px, transparent 1px);
+      background-size:60px 60px;
+      pointer-events:none;
+      mix-blend-mode:overlay;
+      opacity:.9;
+      animation:particleMove 20s linear infinite;
+      z-index:-1;
     }
 
-    .title {
-        display: flex;
-        flex-direction: column;
+    @keyframes particleMove {0%{transform:translateY(0);}100%{transform:translateY(-120px);} }
+    @keyframes mobileFadeIn {from{opacity:0; transform:scale(.98);} to{opacity:1; transform:scale(1);} }
+
+    /* === Title === */
+    h1 {
+      font-size:2.4rem;
+      color:#cfc3ff;
+      letter-spacing:.6px;
+      text-shadow:0 6px 30px rgba(94,64,242,.25);
+      margin-top:18px;
+      text-align:center;
+      z-index:5;
+      padding:0 12px;
     }
 
-    .title-name {
-        font-size: 22px;
-        font-weight: 700;
-        color: #3ea1ff;
+    /* === Container === */
+    .sc-container {
+      width:95%;
+      max-width:920px;
+      margin-top:18px;
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+      padding-bottom:40px;
+      z-index:4;
     }
 
-    .subtitle {
-        font-size: 14px;
-        color: #94a3b8;
+    /* === CARD === */
+    .sc-card {
+      background:linear-gradient(180deg, rgba(6,6,12,0.62), rgba(6,6,12,0.48));
+      border-radius:28px;
+      padding:28px 20px;
+      border:1px solid rgba(120,80,255,0.12);
+      box-shadow:0 8px 40px rgba(10,6,18,0.6);
+      transition:.28s;
+      position:relative;
+      overflow:hidden;
+      transform:translateY(30px);
+      opacity:0;
+      animation:cardIn .9s ease forwards;
+    }
+    @keyframes cardIn { from{opacity:0; transform:translateY(40px) scale(.98);} to{opacity:1; transform:translateY(0) scale(1);} }
+
+    .sc-card::after {
+      content:'';
+      position:absolute;
+      left:-40px; top:0; bottom:0;
+      width:140px;
+      background:linear-gradient(180deg, rgba(94,64,242,0.06), rgba(60,30,180,0.03));
+      transform:skewX(-12deg);
+      pointer-events:none;
     }
 
-    /* WELCOME */
-    .welcome {
-        text-align: center;
-        font-size: 20px;
-        padding: 20px;
-        color: #60a5fa;
+    .sc-name {
+      font-size:1.5rem;
+      font-weight:800;
+      margin-bottom:10px;
+      text-shadow:0 6px 20px rgba(90,60,255,.1);
     }
 
-    /* LIST SECTION */
-    .list {
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        padding-bottom: 150px; /* Tambahan bawah untuk konten panjang */
+    .sc-desc {
+      font-size:1.02rem;
+      color:#d8d6e9;
+      margin-bottom:18px;
+      line-height:1.45;
     }
 
-    .item {
-        background: #111827;
-        border: 1px solid #1f2937;
-        padding: 16px;
-        border-radius: 14px;
+    /* === BUTTON INSTALL === */
+    .install-btn {
+      width:100%;
+      padding:14px 20px;
+      font-size:16px;
+      font-weight:700;
+      background:linear-gradient(135deg, #4f3ce6, #3b7bdc 60%);
+      border:none;
+      border-radius:14px;
+      color:#fff;
+      cursor:pointer;
+      transition:.18s;
+      box-shadow:0 8px 30px rgba(75,50,240,.28);
+      position:relative;
+      overflow:hidden;
     }
 
-    .item img {
-        width: 100%;
-        border-radius: 10px;
+    .install-btn:active { transform:translateY(2px); }
+    .install-btn:hover { transform:translateY(-3px); }
+
+    /* === LOADING OVERLAY === */
+    .loading-overlay {
+      position:fixed;
+      inset:0;
+      background:rgba(2,2,6,0.95);
+      display:none;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      gap:16px;
+      z-index:9999;
     }
 
-    .item-title {
-        margin-top: 10px;
-        font-size: 18px;
-        font-weight: 700;
-        color: #3ea1ff;
+    .spinner {
+      width:72px; height:72px;
+      border-radius:50%;
+      border:6px solid rgba(110,90,255,0.18);
+      border-top-color:#6f58ff;
+      animation:spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform:rotate(360deg);} }
+
+    .progress-container {
+      width:88%; max-width:360px;
+      height:14px;
+      background:rgba(255,255,255,0.06);
+      border-radius:12px;
+      overflow:hidden;
+    }
+    .progress-bar {
+      width:0%; height:100%;
+      background:linear-gradient(90deg, #6f58ff, #3b7bdc);
+      transition:width .12s linear;
+    }
+    .loading-text { color:#cfc9ff; font-size:1.05rem; }
+    .progress-percent { font-size:1rem; font-weight:700; }
+
+    footer {
+      margin:40px 0 60px;
+      color:rgba(220,220,240,.8);
+      font-size:.95rem;
+      text-align:center;
+      z-index:4;
     }
 
-    .item-desc {
-        margin-top: 5px;
-        font-size: 14px;
-        color: #94a3b8;
+    /* HP kecil */
+    @media(max-width:480px){
+      h1{ font-size:2rem; }
+      .sc-card{ padding:20px 16px; }
+      .sc-name{ font-size:1.3rem; }
     }
-
-    .btn-row {
-        margin-top: 12px;
-        display: flex;
-        gap: 10px;
-    }
-
-    .btn {
-        flex: 1;
-        padding: 12px;
-        border-radius: 10px;
-        background: #1d4ed8;
-        border: none;
-        font-weight: 700;
-        color: white;
-        text-decoration: none;
-        text-align: center;
-    }
-
-    /* BOTTOM ICON BAR */
-    .bottom-bar {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        padding: 12px 0;
-        background: #0f172a;
-        border-top: 1px solid #1e293b;
-        display: flex;
-        justify-content: space-around;
-        z-index: 999;
-    }
-
-    .icon-btn {
-        width: 52px;
-        height: 52px;
-        background: #1e293b;
-        border-radius: 50%;
-        border: 2px solid #3b4c66;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #cfe6ff;
-        font-size: 22px;
-        text-decoration: none;
-    }
-
-    /* KHUSUS MOBILE */
-    @media (max-width: 600px) {
-        body {
-            padding-bottom: 170px !important; /* ruang aman 4 icon */
-        }
-        .list {
-            padding-bottom: 180px; /* biar list panjang aman */
-        }
-    }
-</style>
+  </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
-<div class="header">
-    <img class="logo-img" src="https://files.catbox.moe/f86odk.jpg">
-    <div class="title">
-        <div class="title-name">𝑾𝑬𝑳𝑷𝑬𝑹-𝑻𝒁𝒀 𝑶𝑭𝑭𝑰𝑪𝑰𝑨𝑳</div>
-        <div class="subtitle">𝙒𝙀𝘽𝙎𝙄𝙏 𝙆𝙃𝙐𝙎𝙐𝙎 𝙎𝘾𝙍𝙄𝙋𝙏 𝙁𝙍𝙀𝙀 ‼️</div>
-    </div>
-</div>
+  <h1>𝗔𝗟𝗟 𝗦𝗖 𝗙𝗥𝗘𝗘 𝗕𝗬 𝗪𝗘𝗟𝗣𝗘𝗥 𝗢𝗙𝗙𝗜𝗖𝗜𝗔𝗟</h1>
 
-<!-- WELCOME -->
-<div class="welcome">🔥🔥 𝙒𝙀𝙇𝘾𝙊𝙈𝙀 𝙏𝙊 𝙒𝙀𝘽𝙎𝙄𝙏𝙀 𝙒𝙀𝙇𝙋𝙀𝙍 𝙊𝙁𝙁𝙄𝘾𝙄𝘼𝙇 🔥🔥</div>
+  <div class="sc-container">
 
-<!-- LIST SCRIPT -->
-<div class="list">
-
-    <!-- ITEM 1 -->
-    <div class="item">
-        <img src="https://files.catbox.moe/gfiupl.jpg">
-        <div class="item-title">SC MD ANIME-AI</div>
-        <div class="item-desc">Pushkontak modern, no bug, support termux & panel.</div>
-        <div class="btn-row">
-            <a class="btn" href="https://www.mediafire.com/file/yejq9eune98yi7t/%25F0%259D%2597%2594%25F0%259D%2597%25A1%25F0%259D%2597%259C%25F0%259D%2597%25A0%25F0%259D%2597%2598-%25F0%259D%2597%2594%25F0%259D%2597%259C_%25281%2529_%25281%2529.zip/file">𝙄𝙉𝙎𝙏𝘼𝙇</a>
-            <a class="btn" href="https://chat.whatsapp.com/HaiEyX6n84EIkRCHoaBXXp?mode=wwt" target="_blank">GRUP BOT WELPERTZY</a>
-        </div>
+    <!-- ALL LIST -->
+    <div class="sc-card">
+      <div class="sc-name">SC FURINA MD V12</div>
+      <div class="sc-desc">SC MD POKOKNYA MAH MLS JELAS KAN</div>
+      <button class="install-btn" onclick="showLoading('https://www.mediafire.com/file/1qhqgamu586pb32/V12_FURINA.zip/file')">Install</button>
     </div>
 
-    
-<!-- BOTTOM ICON BAR -->
-<div class="bottom-bar">
-    <a class="icon-btn" href="https://saweria.co/Welpertzy">💛</a>
-    <a class="icon-btn" href="https://t.me/testimoniwelper">📢</a>
-    <a class="icon-btn" href="https://chat.whatsapp.com/HaiEyX6n84EIkRCHoaBXXp?mode=wwt">💬</a>
-    <a class="icon-btn" href="https://wa.me/6283848305590?text=Assalamualaikum">👤</a>
-</div>
+    <div class="sc-card">
+      <div class="sc-name">SC PUSHKONTAK V7</div>
+      <div class="sc-desc">SC PUSHKONTAK GACOR INI TEH.</div>
+      <button class="install-btn" onclick="showLoading('https://www.mediafire.com/file/jzcqldmxy2o1rw5/SC_BOT_PUSHKONTAK_V7.zip/file')">Install</button>
+    </div>
+
+    <div class="sc-card">
+      <div class="sc-name">SC MD CHIIMD</div>
+      <div class="sc-desc">SC MD POKOKNYA MAH MLS JELAS KAN</div>
+      <button class="install-btn" onclick="showLoading('https://www.mediafire.com/file/b4b730gx45c8tgx/ChiiMD.zip/file')">Install</button>
+    </div>
+
+    <div class="sc-card">
+      <div class="sc-name">SC MD CHIIMD (Duplikat)</div>
+      <div class="sc-desc">SC MD POKOKNYA MAH MLS JELAS KAN</div>
+      <button class="install-btn" onclick="showLoading('https://www.mediafire.com/file/b4b730gx45c8tgx/ChiiMD.zip/file')">Install</button>
+    </div>
+
+    <div class="sc-card">
+      <div class="sc-name">SC MD FURINA</div>
+      <div class="sc-desc">SC MD POKOKNYA MAH MLS JELAS KAN</div>
+      <button class="install-btn" onclick="showLoading('https://www.mediafire.com/file/f0r0a6prg8uigqp/Furina_MD_Premium_Scri')">Install</button>
+    </div>
+
+    <div class="sc-card">
+      <div class="sc-name">SC MD SkyzMD</div>
+      <div class="sc-desc">SC MD POKOKNYA MAH MLS JELAS KAN</div>
+      <button class="install-btn" onclick="showLoading('https://www.mediafire.com/file/kmfuf8xwa2c1ay2/SkyzMD.zip/file')">Install</button>
+    </div>
+
+    <div class="sc-card">
+      <div class="sc-name">SC MD NEZUKOV2MD</div>
+      <div class="sc-desc">SC MD POKOKNYA MAH MLS JELAS KAN</div>
+      <button class="install-btn" onclick="showLoading('https://www.mediafire.com/file/s5c0k13546qrxpa/NezukoV2MD.zip/file')">Install</button>
+    </div>
+
+  </div>
+
+  <footer>❏ 𝗔𝗟𝗟 𝗦𝗖 𝗙𝗥𝗘𝗘 𝗕𝗬 𝗪𝗘𝗟𝗣𝗘𝗥 𝗢𝗙𝗙𝗜𝗖𝗜𝗔𝗟</footer>
+
+  <!-- LOADING -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+    <div class="loading-text">Preparing download...</div>
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="progress-percent" id="progressPercent">0%</div>
+  </div>
+
+  <script>
+    function showLoading(url){
+      const overlay=document.getElementById('loadingOverlay');
+      const bar=document.getElementById('progressBar');
+      const pct=document.getElementById('progressPercent');
+
+      overlay.style.display='flex';
+      bar.style.width='0%';
+      pct.textContent='0%';
+
+      let progress=0;
+      const interval=setInterval(()=>{
+        progress+=Math.random()*12;
+        if(progress>=100){
+          progress=100;
+          clearInterval(interval);
+          setTimeout(()=>{
+            window.open(url,'_blank');
+            overlay.style.display='none';
+          },420);
+        }
+        bar.style.width=Math.floor(progress)+'%';
+        pct.textContent=Math.floor(progress)+'%';
+      },90);
+    }
+  </script>
 
 </body>
 </html>
